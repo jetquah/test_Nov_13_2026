@@ -1,25 +1,540 @@
 <!DOCTYPE html>
-<html lang="zh"><head>
+<html lang="zh">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<meta http-equiv="refresh" content="60">
-<title>爆款雷达 · 还在加载</title>
+<title>Metaphysics Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
-       background:#0a0d13;color:#e8e8ea;text-align:center;padding:24px;
-       font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif}
-  .spin{width:34px;height:34px;margin:0 auto 26px;border:3px solid #2a2f3a;
-        border-top-color:#ff785a;border-radius:50%;animation:s 1s linear infinite}
-  @keyframes s{to{transform:rotate(360deg)}}
-  h1{font-size:23px;margin:0 0 14px;font-weight:600}
-  p{margin:8px 0;color:#9a9aa2;font-size:15px;line-height:1.75}
-  .hint{margin-top:30px;font-size:13.5px;color:#6e6e78}
-  @media(prefers-reduced-motion:reduce){.spin{animation:none}}
-</style></head><body><div>
-  <div class="spin"></div>
-  <h1>你的页面还在加载中,请稍等</h1>
-  <p>第一次大约需要 20-60 分钟。</p>
-  <p>这一页会自己刷新,你可以先去忙别的。</p>
-  <p class="hint">等很久都没变?回到安装 SOP 第 7 步,<br>到仓库的 Actions 看 Sync Content 有没有跑完。</p>
-</div></body></html>
+  :root {
+    --bg: #0a0d13;
+    --card: #11151d;
+    --card-hi: #151a24;
+    --border: #1d2430;
+    --border-hi: #2c3546;
+    --text: #e8ecf3;
+    --muted: #8a94a6;
+    --faint: #5b6577;
+    --accent: #5ea1ff;
+    --green: #3fd68f;
+    --orange: #f0a33f;
+    --pink: #ff6b9d;
+    --red: #ff5c5c;
+    --fire1: #ff8a3d;
+    --fire2: #ff4d6d;
+    --font: 'Inter', -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    --disp: 'Space Grotesk', 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scrollbar-color: #232c3b var(--bg); }
+  body { background: var(--bg); color: var(--text); font-family: var(--font);
+    -webkit-font-smoothing: antialiased; }
+  ::selection { background: rgba(94,161,255,.3); }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: #232c3b; border-radius: 8px; }
+  ::-webkit-scrollbar-thumb:hover { background: #2c3546; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+  .ic { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2;
+    stroke-linecap: round; stroke-linejoin: round; fill: none; flex: none; }
+
+  header { position: sticky; top: 0; z-index: 50; background: rgba(10,13,19,.86);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border); padding: 13px 20px 12px; }
+  .hrow { display: flex; flex-wrap: wrap; gap: 9px; align-items: center; max-width: 1440px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 10px; margin-right: auto; }
+  .mark { width: 31px; height: 31px; border-radius: 9px; display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--fire1), var(--fire2));
+    box-shadow: 0 4px 16px rgba(255,92,80,.35); }
+  .mark .ic { width: 17px; height: 17px; color: #fff; }
+  h1 { font-family: var(--disp); font-size: 16.5px; font-weight: 700; letter-spacing: .2px; white-space: nowrap; line-height: 1.15; }
+  h1 small { display: block; color: var(--faint); font-family: var(--font); font-weight: 400;
+    font-size: 10.5px; letter-spacing: 0; }
+
+  .search { position: relative; }
+  .search > .ic { position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+    color: var(--faint); width: 13.5px; pointer-events: none; }
+  input#fSearch { background: var(--card); color: var(--text); border: 1px solid var(--border);
+    border-radius: 10px; padding: 8px 12px 8px 32px; font-size: 13px; font-family: var(--font);
+    width: 200px; transition: border-color .18s, background .18s; }
+  input#fSearch:hover { border-color: var(--border-hi); }
+  input#fSearch:focus { border-color: var(--accent); outline: none; }
+  input#fSearch::placeholder { color: var(--faint); }
+
+  select, .btn { background: var(--card); color: var(--text); border: 1px solid var(--border);
+    border-radius: 10px; padding: 8px 11px; font-size: 13px; font-family: var(--font);
+    cursor: pointer; transition: border-color .18s, background .18s, color .18s;
+    display: inline-flex; align-items: center; gap: 6px; }
+  select:hover, .btn:hover { border-color: var(--border-hi); background: var(--card-hi); }
+  .btn:active { transform: scale(.97); }
+  .btn.on { border-color: var(--accent); color: var(--accent); background: rgba(94,161,255,.08); }
+
+  .tabs { display: flex; gap: 7px; flex-wrap: wrap; max-width: 1440px; margin: 12px auto 0; }
+  .tab { display: inline-flex; align-items: center; gap: 7px; background: var(--card);
+    border: 1px solid var(--border); border-radius: 999px; padding: 6.5px 14px;
+    font-size: 13px; color: var(--muted); cursor: pointer; user-select: none;
+    transition: border-color .18s, background .18s, color .18s, transform .18s; }
+  .tab:hover { border-color: var(--border-hi); color: var(--text); }
+  .tab .cnt { font-family: var(--disp); font-weight: 600; font-size: 11px;
+    background: rgba(255,255,255,.06); padding: 1.5px 7.5px; border-radius: 99px;
+    font-variant-numeric: tabular-nums; }
+  .tab.on { color: var(--text);
+    background: linear-gradient(135deg, rgba(255,138,61,.15), rgba(255,77,109,.15));
+    border-color: rgba(255,120,90,.45); }
+  .tab.on .cnt { background: rgba(255,120,90,.25); }
+  body.dragging .tab.droppable { border-style: dashed; border-color: var(--accent); }
+  .tab.over { background: rgba(94,161,255,.22); color: var(--text); transform: scale(1.07); }
+
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; max-width: 1440px; margin: 9px auto 0; align-items: center; }
+  .chips .lbl { font-size: 12px; color: var(--faint); margin-right: 2px; }
+  .chip2 { display: inline-flex; align-items: center; gap: 5.5px; background: var(--card);
+    border: 1px solid var(--border); border-radius: 999px; padding: 4.5px 12px;
+    font-size: 12px; color: var(--muted); cursor: pointer; user-select: none;
+    transition: border-color .18s, color .18s, background .18s;
+    font-variant-numeric: tabular-nums; }
+  .chip2 .ic { width: 12.5px; height: 12.5px; }
+  .chip2:hover { border-color: var(--border-hi); color: var(--text); }
+  .chip2.on { border-color: rgba(240,163,63,.6); color: var(--orange); background: rgba(240,163,63,.08); }
+
+  main { max-width: 1440px; margin: 22px auto; padding: 0 20px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(305px, 1fr)); gap: 18px; }
+
+  .card { position: relative; background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden; display: flex; flex-direction: column;
+    transition: transform .22s cubic-bezier(.2,.7,.3,1), border-color .22s, box-shadow .22s;
+    animation: fadeUp .45s cubic-bezier(.2,.7,.3,1) both; }
+  .card:hover { transform: translateY(-3px); border-color: var(--border-hi);
+    box-shadow: 0 12px 32px rgba(0,0,0,.45); }
+  .card.outlier::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--fire1), var(--fire2)); z-index: 2; }
+  .card[draggable] { cursor: grab; }
+  .card.lifting { opacity: .45; }
+  .card.saved { border-color: var(--green); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  .embed { position: relative; width: 100%; aspect-ratio: 4/5; background: #080b10; }
+  .embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .embed .ph { position: absolute; inset: 0; display: grid; place-items: center;
+    background: linear-gradient(110deg, #0b0e15 8%, #121826 18%, #0b0e15 33%);
+    background-size: 200% 100%; animation: shimmer 1.5s linear infinite; }
+  .embed .ph .ic { width: 30px; height: 30px; color: #2a3342; stroke-width: 1.6; }
+  @keyframes shimmer { to { background-position-x: -200%; } }
+
+  .meta { padding: 13px 15px 14px; display: flex; flex-direction: column; gap: 9px; }
+  .row1 { display: flex; align-items: center; gap: 7px; font-size: 13px; flex-wrap: wrap; }
+  .handle { color: #3a4456; cursor: grab; display: inline-flex; }
+  .handle .ic { width: 13px; height: 13px; }
+  .who { font-weight: 600; color: var(--accent); text-decoration: none; }
+  .who:hover { text-decoration: underline; }
+  .badge { display: inline-flex; align-items: center; gap: 4px; font-size: 10.5px; font-weight: 500;
+    padding: 2.5px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); }
+  .badge .ic { width: 10.5px; height: 10.5px; }
+  .badge.bnew { color: var(--pink); border-color: rgba(255,107,157,.45); background: rgba(255,107,157,.07); }
+  .badge.bhorse { color: var(--orange); border-color: rgba(240,163,63,.45); background: rgba(240,163,63,.07); }
+  .badge.bbait { color: var(--accent); border-color: rgba(94,161,255,.4); background: rgba(94,161,255,.07); }
+  .date { margin-left: auto; color: var(--faint); font-size: 11px; font-variant-numeric: tabular-nums; }
+
+  .nums { display: flex; gap: 6px; flex-wrap: wrap; }
+  .num { display: inline-flex; align-items: center; gap: 5px; background: #0c0f16;
+    border: 1px solid var(--border); border-radius: 9px; padding: 5px 9px;
+    font-size: 11px; color: var(--muted); }
+  .num .ic { width: 11.5px; height: 11.5px; }
+  .num b { font-family: var(--disp); color: var(--text); font-size: 12.5px; font-weight: 600;
+    font-variant-numeric: tabular-nums; }
+  .num.hot { border-color: rgba(255,122,77,.35); }
+  .num.hot .ic, .num.hot b { color: #ff7a4d; }
+  .num.x { border-color: rgba(240,163,63,.35); }
+  .num.x .ic, .num.x b { color: var(--orange); }
+  .num.er .ic, .num.er b { color: var(--green); }
+
+  .cap { color: var(--muted); font-size: 12.5px; line-height: 1.55; display: -webkit-box;
+    -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; cursor: pointer; }
+  .cap.open { -webkit-line-clamp: unset; }
+  .cap b { color: var(--text); font-weight: 600; }
+  .ai { border-left: 2px solid var(--orange); background: rgba(240,163,63,.06);
+    padding: 8px 11px; border-radius: 0 10px 10px 0; font-size: 12px; line-height: 1.65;
+    color: var(--muted); }
+  .ai b { color: var(--orange); font-weight: 600; }
+  .mine { border-left: 2px solid var(--green); background: rgba(63,214,143,.06);
+    padding: 8px 11px; border-radius: 0 10px 10px 0; font-size: 12px; line-height: 1.65;
+    color: var(--muted); cursor: pointer; display: -webkit-box; -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
+  .mine.open { -webkit-line-clamp: unset; }
+  .mine b { color: var(--green); font-weight: 600; }
+
+  .srow { display: flex; align-items: center; gap: 7px; }
+  .srow label { font-size: 12px; color: var(--faint); }
+  .status { flex: 1; padding: 6px 9px; font-size: 12.5px; }
+  .status.s未处理 { color: var(--muted); }
+  .status.s拍摄中 { color: var(--orange); border-color: rgba(240,163,63,.5); }
+  .status.s已处理 { color: var(--green); border-color: rgba(63,214,143,.5); }
+  .status.s跳过 { color: var(--red); border-color: rgba(255,92,92,.5); }
+  .abtn { display: inline-flex; align-items: center; gap: 5px; background: #0c0f16;
+    color: var(--muted); border: 1px solid var(--border); border-radius: 9px;
+    padding: 6px 10px; font-size: 11.5px; font-family: var(--font); cursor: pointer;
+    text-decoration: none; transition: color .18s, border-color .18s, transform .1s; }
+  .abtn .ic { width: 12px; height: 12px; }
+  .abtn:hover { color: var(--accent); border-color: rgba(94,161,255,.5); }
+  .abtn:active { transform: scale(.95); }
+
+  .more { text-align: center; margin: 28px 0 44px; }
+  .more button { background: var(--card); color: var(--accent); border: 1px solid var(--border);
+    border-radius: 12px; padding: 11px 30px; font-size: 14px; font-family: var(--font);
+    cursor: pointer; transition: border-color .18s, background .18s; }
+  .more button:hover { border-color: var(--border-hi); background: var(--card-hi); }
+
+  .empty { color: var(--faint); text-align: center; padding: 70px 0; display: flex;
+    flex-direction: column; align-items: center; gap: 12px; font-size: 14px; }
+  .empty .ic { width: 34px; height: 34px; stroke-width: 1.5; color: #2c3546; }
+
+  footer { color: var(--faint); font-size: 11px; text-align: center; padding: 22px; }
+
+  #toast { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%) translateY(8px);
+    background: var(--card-hi); border: 1px solid var(--border-hi); border-radius: 11px;
+    padding: 11px 20px; font-size: 13px; display: none; z-index: 99; opacity: 0;
+    box-shadow: 0 12px 32px rgba(0,0,0,.5); transition: opacity .2s, transform .2s; }
+  #toast.show { display: block; opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="M22 7l-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.5l7.1-.6z"/></symbol>
+  <symbol id="i-magnet" viewBox="0 0 24 24"><path d="m6 15-4-4 6.75-6.77a7.79 7.79 0 0 1 11 11L13 22l-4-4 6.39-6.36a2.14 2.14 0 0 0-3-3L6 15"/><path d="m5 8 4 4"/><path d="m12 15 4 4"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6"/><path d="M9 16h6"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><path d="m10 8 6 4-6 4Z"/><rect x="2" y="4" width="20" height="16" rx="3"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></symbol>
+  <symbol id="i-grip" viewBox="0 0 24 24"><circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/></symbol>
+  <symbol id="i-pct" viewBox="0 0 24 24"><path d="M19 5 5 19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></symbol>
+</svg>
+<header>
+  <div class="hrow">
+    <div class="brand">
+      <div class="mark"><svg class="ic"><use href="#i-flame"/></svg></div>
+      <h1>Metaphysics Services<small id="updated"></small></h1>
+    </div>
+    <div class="search"><svg class="ic"><use href="#i-search"/></svg>
+      <input id="fSearch" placeholder="搜文案 / hashtag / 账号"></div>
+    <select id="fTracker"><option value="">全部 Tracker</option></select>
+    <select id="fComp"><option value="">全部 Competitor</option></select>
+    <select id="fSort">
+      <option value="x">按 爆款倍数 (vs 自家平均)</option>
+      <option value="score">按 Viral Score</option>
+      <option value="er">按 Engagement Rate</option>
+      <option value="comments">按 Comments</option>
+      <option value="likes">按 Likes</option>
+      <option value="date">按 最新日期</option>
+    </select>
+    <button class="btn" id="fVideo"><svg class="ic"><use href="#i-video"/></svg>只看视频</button>
+
+    <a class="btn" href="team.html" target="_top" title="工作台"><svg class="ic"><use href="#i-users"/></svg>工作台</a>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <div class="chips" id="presets"></div>
+  <div class="chips" id="trends"></div>
+</header>
+<main>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" style="display:none"><svg class="ic"><use href="#i-search"/></svg>没有符合条件的帖子</div>
+  <div class="more" id="moreWrap" style="display:none"><button id="moreBtn">载入更多</button></div>
+</main>
+<footer>数据来源 Supabase · 每周自动更新 · 状态更改即时同步全团队 · 视频由 Instagram 官方 embed 播放</footer>
+<div id="toast"></div>
+<script id="data" type="application/json">[{"id": "DeNebtVE4kq", "tracker": "Metaphysics Services 竞对", "competitor": "masterjasonfengshui", "caption": "🙏 Grateful for Today's Feng Shui Audit near Keppel Bay 🌊🙏\n\nThank you to our client for the trust and warm welcome. Every home has its own story, and today we read it together 🏡✨\n\n🧭 Facing: aligning the home's direction with the occupants' energy\n🎨 Colour: balancing the Five Elements in every room\n🪞 Mirror placement: reflecting good qi in and keeping sha qi out\n🌊 External environment: the waterfront, the hills and roads, and how water qi meets the home\n🏢 External buildings: neighbouring towers, sharp corners and roof lines all affect the home's energy\n📐 And more: Flying Stars, Eight Mansions, room allocation and the bed and desk positions\n\nMountains embrace, water gathers. Small adjustments, big harmony. May this home bring peace, health and prosperity to the whole family 💫\n\n🙏 感恩今日吉寶灣風水勘察 🌊🙏\n\n感謝客戶的信任與熱情款待 🏡✨\n🧭 坐向：配合宅主命卦\n🎨 顏色：五行平衡\n🪞 鏡子擺放：納吉避煞\n🌊 外巒頭：海灣水勢、山形與道路\n🏢 外部建築：鄰近樓宇、尖角、屋脊皆影響宅氣\n📐 玄空飛星、八宅、房間及床位書桌安排\n\n山環水抱，藏風聚氣 💫 祝福府上平安健康、家運興隆！\n\n📍 Master Jason Feng Shui｜泰易發風水命理\n📩 DM for Feng Shui audit ", "transcript": "", "brk": "Hook类型: 展示成果\n结构: 现场勘察 → 核心维度拆解 → 客户祝福与转化\n为什么火: 用专业术语和具体豪宅地标建立权威背书与信任感\n改编角度: 结合本地高档楼盘案例，突出细节调理前后的能量对比与福主反馈", "my": "你现在是不是正站在转职、合作或者重要选择的十字路口，反复思考却依然做不出决定？\n\n很多人以为，面对重大抉择的时候，必须马上给出答案或者听取所有人的意见。\n\n其实不是，真正让我卡住的，往往是局势没有梳理清楚，忽略了关键的盲点。\n\n我协助过许多处于人生十字路口的朋友，通常会从三个步骤来协助你。\n\n第一步，梳理局势。你要做的是把当前面对的具体问题和所有选择摊开来看，而不是急着下定论。为什么要这样做？因为把杂乱的信息理清之后，你才能看清自己真正卡在哪个环节，减少不必要的试错成本。\n\n第二步，识别盲点。你要做的是找出那些容易忽略的隐患和潜在风险，而不是盲目听从别人的建议。为什么要这样做？因为很多时候阻碍我们的不是没有出路，而是我们忽略了某些重要的现实条件，认清盲点才能找出更稳妥的下一步。\n\n第三步，判断清晰。你要做的是在一对一的咨询里厘清方向，而不是靠猜测来决定未来。为什么要这样做？因为本服务不替你作决定，也不保证特定结果，目的在于提升判断清晰度。完成之后，你还会得到一份8到10页的个人分析报告，并在60天内有一次30分钟的复盘。\n\n过去很多人在面对重要抉择时，常常在焦虑和犹豫中消耗时间，甚至做出错误决定。\n\n找到方法之后，你就能带着更清晰的判断，稳妥地迈出下一步。\n\n如果你正处于事业、感情或合作的重要选择路口，想梳理局势并找出更稳妥的下一步，可以私信我了解Strategic Decision Alignment关键抉择咨询。\n\n首49位预售价为S$88，每日最多接受2位预约。", "tags": "", "bait": false, "type": "Carousel", "likes": 3, "comments": 1, "er": 2.8, "followers": 143, "date": "2026-10-07", "url": "https://www.instagram.com/p/DeNebtVE4kq/", "video": false, "ratio": 0, "score": 4.2, "status": "未处理", "x": 1.2}, {"id": "DfUnyDWnBQX", "tracker": "Metaphysics Services 竞对", "competitor": "masterjasonfengshui", "caption": "Does your main entrance open directly facing a large window? 🚪💨🪟 \n\nThis common layout creates a severe energy leak where good Qi rushes in and immediately out of your home. Known as Cai Lai Cai Qu (wealth coming and leaving), it drains your household’s financial energy and stability. Block it easily with a partition, broad-leaf plants, or red curtains! \n\nProtect your home’s wealth flow today! Reach out to DM Master Jason Fengshui to optimize your home layout 💰✨\n\n#MasterJasonFengShui #FengShui #FengShuiTips #fengshuitipsforhome #FengShuiLiving #HomeEnergy", "transcript": "We are seeing the main door directly facing the window, so it will be important to tell your ID that this is something that is also auspicious in terms of function and is best that you put a partition at the middle or place some cards in bedclaps or place some red tape card in this area to block the direct T point into your house and marching out of the house This situation will bring about a tie-line tie-treat or well-built disneyed experience", "brk": "Hook类型: 痛点直击\n结构: 指出大门正对窗户的漏财格局 → 解释风水危害 → 给出植物或隔断的化解妙招\n为什么火: 精准切中现代房屋常见户型痛点，提供低成本且立竿见影的化解方案。\n改编角度: 拍摄自家/客户真实户型对比，直观展示大门直冲窗户的泄财点并演示化解。", "my": "大门一开正对窗户，你是不是也每天担心留不住钱？\n你可能觉得，只要在玄关加个屏风、摆大叶植物，或者挂上红地毯就能挡住漏财。\n其实不是这样，真正让选择失控的，往往不是房子的布局，而是你面对重要决定时那团理不清的乱麻。\n面对事业、感情或者合作的十字路口，你需要的不是盲目调整家里的风水，而是真正把局势看清楚。\n我来带你用三个步骤，找出更容易走稳的下一步。\n第一步，把当前最卡你的具体问题写下来。\n为什么要这样做？因为把模糊的焦虑变成明确的事情，你才能停止无谓的纠结。\n花多少时间？我们用 45 分钟的时间，一对一专门梳理这一个具体问题。\n做完以后有什么效果？你会发现那些容易忽略的盲点，不再被情绪带着走。\n第二步，梳理你目前的局势。\n为什么要这样做？因为你已经听过太多不同的意见，反而不知道该听谁的。\n花多少时间？我会协助你一步步拆解，看看手里还有什么牌，找出更稳妥的下一步。\n做完以后有什么效果？你的判断清晰度会明显提升，不再盲目试错。\n第三步，进行长期的复盘。\n为什么要这样做？因为决定做完之后，情况往往会有新的变化。\n花多少时间？在 60 天内，我们有一次 30 分钟的复盘时间，帮你随时调整节奏。\n做完以后有什么效果？减少试错成本，让每一步都走得更踏实。\n以前你可能在各种选择里反复拉扯，不知道该继续还是换方向。\n用对方法以后，你会带着清晰的判断，自己做出那个不再后悔的决定。\n本服务不替客户作决定，也不保证特定结果，目的在于提升判断清晰度并减少试错成本。\n首 49 位预售价为 S$88，每日最多接受 2 位预约。\n如果你正处于事业、感情或合作的十字路口，现在就私信我预约时间。", "tags": "MasterJasonFengShui, FengShui, FengShuiTips, fengshuitipsforhome, FengShuiLiving, HomeEnergy", "bait": false, "type": "Video", "likes": 5, "comments": 0, "er": 3.5, "followers": 143, "date": "2026-11-04", "url": "https://www.instagram.com/p/DfUnyDWnBQX/", "video": true, "ratio": 0, "score": 3.5, "status": "未处理", "x": 1.0}, {"id": "DfFR8aiiKjM", "tracker": "Metaphysics Services 竞对", "competitor": "masterjasonfengshui", "caption": "Is a sharp wall corner pointing directly at your head while you sleep? 🚫🛏️ \n\nIn Feng Shui, the surface behind your bedhead should always be solid and continuous to foster supportive energy and restful sleep. Having a sharp corner cut into your bedhead creates negative energy (Sha Qi) that can disrupt your sleep quality and peace of mind. \n\nRearrange your bedroom layout today to ensure a solid backing and continuous support! Contact Master Jason Feng Shui for a personal consultation 🌟 \n\n#MasterJasonFengShui #FengShui #FengShuiTips #fengshuitipsforhome #FengShuiLiving #HomeEnergy", "transcript": "In terms of house hold-sui, especially for the big room, the surface that is at the head of the bed is supposed to be a shoe. So avoid this type of situation or habit corner that is directly facing your head when you are sleeping.", "brk": "Hook类型: 痛点直击\n结构: 指出床头冲角问题 → 解释风水煞气危害 → 给出调整建议并转化私信\n为什么火: 结合睡眠痛点与常见卧室布局误区，精准引发对居家能量的焦虑。\n改编角度: 盘点华人卧室最易犯的3大风水禁忌，教粉丝用低成本化解法并引流咨询。", "my": "你正处于事业、感情、合作或重要选择十字路口吗？\n你以为只要多看几本书、多听几个人的意见，就能把眼前的局势彻底看明白。\n其实不是这样，往往是因为选项太多，反而让你在原地转圈，看不清真正被忽略的盲点。\n今天分享三个方法，帮你理清眼前的具体问题。\n第一步，把当前面临的选项写在一张纸上。\n这样做是为了把脑子里乱七八糟的想法变成具体的文字，避免每天在同一个地方反复纠结。\n花十分钟完成这个动作，你就能先把情绪和事实分开。\n第二步，找出每一个选择里最坏的结果是什么。\n这样做是为了协助你评估自己到底能不能承担这个代价，而不是凭着感觉盲目往前冲。\n用五分钟时间冷静思考，你就能看清哪些风险其实在你的承受范围之内。\n第三步，带着这一个最具体的问题，进行一次深入的梳理。\n这样做是为了借助客观的视角帮你识别盲点，找出更稳妥的下一步，减少试错成本。\n我们可以进行一次 45 分钟的 Strategic Decision Alignment 关键抉择咨询。\n服务包含 45 分钟咨询、8 到 10 页个人分析报告，以及 60 天内一次 30 分钟复盘。\n首 49 位预售价为 S$88，每日最多接受 2 位预约。\n本服务不替你作决定，也不保证特定结果，目的在于提升你的判断清晰度并减少试错成本。\n如果你正处于重要的选择十字路口，现在就私信我了解预约详情。", "tags": "MasterJasonFengShui, FengShui, FengShuiTips, fengshuitipsforhome, FengShuiLiving, HomeEnergy", "bait": false, "type": "Video", "likes": 4, "comments": 0, "er": 2.8, "followers": 143, "date": "2026-10-29", "url": "https://www.instagram.com/p/DfFR8aiiKjM/", "video": true, "ratio": 0, "score": 2.8, "status": "未处理", "x": 0.8}, {"id": "Dds9MfcTMjp", "tracker": "Metaphysics Services 竞对", "competitor": "masterseanchan", "caption": "Thy sabbatical starts now. Hold my tea because refining AI skills beckons. And happy mid-autumn, everyone! Hope you Cat. 4s celebrating alone, you bunch of doughnuts! 🫰🖕❤️‍🔥", "transcript": "", "brk": "Hook类型: 身份共鸣\n结构: 幽默问候 → 个人动态 → 节日调侃\n为什么火: 结合AI热点与节日幽默吐槽，精准击中年轻群体情绪\n改编角度: 结合中秋/节气运势，幽默吐槽现代人独自奋斗的扎心痛点并给出转运建议", "my": "你现在正处于事业或者合作的重要选择十字路口，但你已经反复思考，依然无法决定。\n\n你以为只要花更多时间去打听不同意见，或者干脆咬牙赌一把，就能理清头绪。\n\n其实不是，真正让你卡住的，是你陷入了局势里，忽略了盲点，才会一直在原地打转。\n\n你可以尝试用这三个方法来协助自己。\n\n第一，把目前最纠结的一个具体问题写下来。这样做能帮你从杂乱的情绪里抽离出来，看清现状。花几分钟时间梳理，往往能减少后续不必要的试错成本。\n\n第二，列出你目前手头所有的选项。这样做能强迫你面对现实局限，而不是凭感觉乱猜。花十几分钟对比，能帮你找出更稳妥的下一步。\n\n第三，给自己设定一个冷静思考的期限。这样做能避免陷入长期拉扯的内耗中。花点时间界定边界，目的在于提升判断清晰度。\n\n在找到方向之前，很多人都是自己一个人在十字路口反复纠结，既消耗精力又拿不定主意。\n\n用对了方法之后，你就能清楚看见局势，不再被各种声音干扰，稳稳地迈出下一步。\n\n如果你正处于事业、感情、合作的重要选择十字路口，想梳理局势、减少试错成本，可以私信我了解 Strategic Decision Alignment 的具体预约方式。", "tags": "", "bait": false, "type": "Image", "likes": 58, "comments": 4, "er": 0.96, "followers": 6469, "date": "2026-09-25", "url": "https://www.instagram.com/p/Dds9MfcTMjp/", "video": false, "ratio": 0, "score": 1.08, "status": "未处理", "x": 1.5}, {"id": "DfjfNszOPKo", "tracker": "Metaphysics Services 竞对", "competitor": "masterseanchan", "caption": "The funny story behind our friendship is that we matched each other on Tinder more than 10 years ago. We didn’t meet up. She became a client and it didn’t occur to me that she was a match. Now, she’s not just a very close friend but also my extremely capable PR manager. ❤️", "transcript": "", "brk": "Hook类型: 身份共鸣\n结构: 奇妙缘分 → 转化关系 → 现状揭秘\n为什么火: 反转剧本结合个人真实故事，拉近距离且建立信任\n改编角度: 讲述玄学服务如何将奇葩客户变成长期挚友或得力伙伴的故事", "my": "你正处在事业、感情、合作或重要选择的十字路口吗。\n很多人面对重大抉择时，以为只要听取身边所有人的意见，或者花很多时间反复纠结，就能自动找到答案。\n但其实不是这样。你往往只是在各种声音里越听越乱，卡在同一个地方出不来。\n第一步，把当前最需要解决的具体问题挑出来，写在一张纸上。不要去想那些还没发生的大局，只看眼前这一个最具体的纠结。这样能帮你迅速把杂乱的思绪收拢，看清问题的核心。\n第二步，花 45 分钟做一次一对一的人生抉择咨询。在这个过程中，我会协助你梳理局势、识别容易忽略的盲点，并找出更稳妥的下一步。本服务不替客户作决定，也不保证特定结果，目的在于提升判断清晰度并减少试错成本。\n第三步，利用 8 到 10 页的个人分析报告和 60 天内一次的 30 分钟复盘来进行对照。看清自己当时的盲点在哪里，复盘 60 天内的实际进展，及时调整方向，避免在错误的路上继续耗费时间与金钱。\n以前你可能总是一个人闷头想，听了太多意见反而更迷茫，不知道该信谁。\n用对方法以后，你能清晰地梳理出局势，看清盲点，稳妥地迈出下一步，不再为错误的决定付出高昂的试错成本。\n现在，首 49 位预售价为 S$88，每日最多接受 2 位预约。\n你可以通过主页链接了解更多详情并预约时间，让我们一起协助你梳理局势，找出更稳妥的下一步。", "tags": "", "bait": false, "type": "Image", "likes": 45, "comments": 1, "er": 0.71, "followers": 6469, "date": "2026-11-10", "url": "https://www.instagram.com/p/DfjfNszOPKo/", "video": false, "ratio": 0, "score": 0.74, "status": "未处理", "x": 1.0}, {"id": "DeHCF4RE__H", "tracker": "Metaphysics Services 竞对", "competitor": "masterseanchan", "caption": "Tian Qi might good but please remember who is its daddy. 🫰", "transcript": "", "brk": "Hook类型: 身份共鸣\n结构: 抛出专业概念(Tian Qi) → 指出底层逻辑(Daddy) → 给出玄学警示\n为什么火: 用拟人化幽默揭示玄学底层规律，击中专业爱好者猎奇心理\n改编角度: 结合八字或风水，用“表面吉星vs幕后主宰”的通俗逻辑讲透命理盲区", "my": "站在人生十字路口时，你是不是正在事业和合作之间反复衡量？\n\n很多人以为，只要反复权衡利弊、多听别人的意见，就一定能找到正确方向。\n\n其实不是，你往往只是在用更多的猜测来掩盖内心的盲点。\n\n我们来看三个协助你梳理局势的方法。\n\n第一，把那个最让你纠结的具体问题单独拿出来，不要让所有事情混在一起。这样做能帮你避开情绪干扰，看清眼前真正的局势。\n\n第二，花四十五分钟时间，坐下来客观梳理所有的限制条件和容易忽略的盲点。这样做能帮你找到更稳妥的下一步。\n\n第三，在一份八到十页的个人分析报告协助下，重新理清你的判断清晰度。这样做能减少试错成本，而不是在原地转圈。\n\n以前的你，总是独自面对重大的事业或感情抉择，在不同的选择之间来回拉扯，却依然找不到方向。\n\n现在的你，可以通过Strategic Decision Alignment，在四十五分钟一对一咨询中冷静梳理局势，并在六十天内完成一次三十分钟复盘。\n\n点击主页链接联系我，获取你的关键抉择咨询。", "tags": "", "bait": false, "type": "Carousel", "likes": 33, "comments": 0, "er": 0.51, "followers": 6469, "date": "2026-10-05", "url": "https://www.instagram.com/p/DeHCF4RE__H/", "video": false, "ratio": 0, "score": 0.51, "status": "未处理", "x": 0.7}, {"id": "DfUulQbjmUY", "tracker": "Metaphysics Services 竞对", "competitor": "kevinfoongfs", "caption": "2027 Chinese Zodiac Forecast, Part 1/4 🐐 The Ding Wei Fire Goat year begins, plus 🐀 Rat and 🐂 Ox. Which signs get support, and which must be careful? Follow for Parts 2–4 👇 Free 2027 Winning Guide: link in bio", "transcript": "This is the year of the Ding Wei Fire Goat. 2027 favours refinement over spectacle. Patient work, thoughtful alliances, and ideas shaped carefully enough to endure. I'll go through all 12 animal signs. The stars that matter most for each, how they are traditionally read, and a practical step from the guide. The 2027 annual pillar is Ding Wei, in fire resting on in-earth. Ding fire is often compared to a lamp, candle, or carefully tended hearth. It is focused rather than explosive, illuminating what is close enough to be understood and improved. For Singapore, the Bazi year changes at Li Chun on Thursday, 4th February, 2027, at approximately 9.46 am Singapore time. Bazi follows Li Chun, not Lunar New Year on 6th February. First, how to read these stars. Annual stars are traditional markers. These readings describe tendencies, not guaranteed outcomes. Use them alongside your full Bazi chart and practical judgement. Rat. Treat 2027 as a year of selective attention. On the supportive side, you have Salty Pool, a traditional marker of social attraction and personal appeal. For 2027, the guide sees more visibility, more invitations, and more emotional colour. Enjoy it, but build sincere connections without over-promising. The star to watch is Xiao Hao, the lesser loss. Traditionally read as small expenses accumulating. Financial pressure is more likely to appear as gradual leakage than as one dramatic loss. So before you take on anything new, audit your recurring costs and cancel, renegotiate, or consolidate at least three. Oxygenment. Build resilience before speed. Your one supportive star is Tang Fu. Traditionally about authority and responsibility. Authority can strengthen when it is earned through preparation and steady execution. Prepare a 90-day transition map. What must continue, what can stop, and which decision needs escalating. Two stars to watch. Yearbreaker, traditionally linked with disrupted plans, and Da Hao, the major loss, with larger demands on resources. The Ox also clashes with the Grand Duke in 2027. Change is not automatically harmful, but delays, breakages, and heavier expenses make contingency planning important. Set up a separate contingency reserve, and get written comparisons before any major purchase, contract, or renovation.", "brk": "Hook类型: 数字承诺\n结构: 宏观流年预测 → 拆解生肖运势 → 给出行动指南\n为什么火: 提前布局2027年运势，结合专业八字干货与具体生肖避坑建议，满足焦虑人群的确定性需求。\n改编角度: 聚焦华人最关心的财运或事业生肖，提炼“提前避坑”的痛点，引流私信或主页链接获取完整秘籍。", "my": "你现在正处于事业、合作或重要选择的十字路口吗。\n很多人以为，面临重大抉择时，必须马上做决定或者把一切推翻重来。\n其实不是，真正卡住你的，往往不是没有路走，而是局势太乱看不清。\n第一，先带来一个当前最需要解决的具体问题，不要同时处理太多事情。\n第二，静下心来协助梳理局势，识别那些平时容易忽略的盲点。\n第三，找出更稳妥的下一步，而不是盲目地往前冲。\n本服务不替客户作决定，也不保证特定结果，目的在于提升判断清晰度并减少试错成本。\n以前面对重要选择时，总是一个人反复纠结，结果越想越焦虑。\n现在用对方法以后，能把复杂局势看清楚，找到更稳妥的方向。\n私信了解 Strategic Decision Alignment，获取 45 分钟一对一人生抉择咨询。\n首 49 位预售价为 S$88，每日最多接受 2 位预约。", "tags": "", "bait": false, "type": "Video", "likes": 96, "comments": 6, "er": 0.13, "followers": 77648, "date": "2026-11-04", "url": "https://www.instagram.com/p/DfUulQbjmUY/", "video": true, "ratio": 0, "score": 0.15, "status": "未处理", "x": 5.0}, {"id": "DfeLMaXipp7", "tracker": "Metaphysics Services 竞对", "competitor": "kevinfoongfs", "caption": "9 bedroom placements that quietly cost you sleep. How many are in your room? 🛏️\n\nWatch to the end and count how many apply to yours.\n\n#FengShui #BedroomFengShui #HomeFengShui #SleepBetter #KevinFoong", "transcript": "Your bedroom could be quietly costing you sleep. Here are 9 placements to check. 1. The foot of your bed in line with the door. You never feel fully at rest. 2. A window behind your headboard. No solid support, more light and draft. 3. A heavy wedding photo hanging over the bed. 4. Sleeping right under the air con. Cold air on your head all night. 5. A big painting above the headboard. It feels heavy, not restful. 6. A bed facing the toilet door. Smell, damp and noise. 7. A mirror facing the bed. Movement and light keep catching your eye. 8. A beam right over the bed. It presses on the space above you. 9. No water features in the bedroom. A fountain or fish tank keeps the room active, not calm. How many did your room have? Tell me below. No fear, no superstition. Just better sleep.", "brk": "Hook类型: 痛点直击 + 数字承诺\n结构: 痛点引入 → 9个卧室风水坏布局快节奏列举 → 互动留评\n为什么火: 结合睡眠痛点与具体家居摆设，清单式干货降低认知门槛且极易触发转发\n改编角度: 盘点华人卧室常见的9个破财或影响健康的风水细节，主打无迷信只讲科学布局", "my": "正处于事业、感情、合作或重要选择十字路口的人，往往不是不够努力，而是卡在一个具体问题上。\n\n你可能以为，只要再多花时间收集资料、听取更多人的意见，就能自然而然找到出路。\n\n其实不是。反复思考却依然无法决定，往往是因为局势太乱，忽略了盲点，导致你在错误的方向上不断消耗时间与金钱成本。\n\n遇到重要抉择时，第一步，先将当前最需要解决的具体问题单独拎出来，不要把所有事情混在一起谈。\n\n这样做能帮你把杂乱的思绪暂停，看清楚眼前的局势，而不是被各种琐事牵着走。\n\n第二步，盘点你目前拥有的资源和限制，找出那些你一直忽略的盲点。\n\n盲点往往藏在你最不愿意面对的选项里，看清它，就能帮你避开最明显的一个坑。\n\n第三步，试着推演未来六十天内，最坏的结果你是否能够承受。\n\n承受得起，就说明这个选择在你的掌控之内，你可以更稳妥地迈出下一步。\n\n本服务不替客户作决定，也不保证特定结果，目的在于提升判断清晰度并减少试错成本。\n\n过去你可能总是一个人默默盘算，反复纠结却还是停在原地，耗费了大量精力却没有进展。\n\n梳理局势之后，你会发现选择其实没有想象中那么复杂，每一步都有更稳妥的方向。\n\n如果你正处于这样的十字路口，可以预约 Strategic Decision Alignment 关键抉择咨询。\n\n服务包含四十五分钟的一对一咨询、八到十页个人分析报告，以及六十天内一次三十分钟复盘，首四十九位预售价为 S$88，每日最多接受两位预约。", "tags": "FengShui, BedroomFengShui, HomeFengShui, SleepBetter, KevinFoong", "bait": false, "type": "Video", "likes": 17, "comments": 2, "er": 0.02, "followers": 77648, "date": "2026-11-08", "url": "https://www.instagram.com/p/DfeLMaXipp7/", "video": true, "ratio": 0, "score": 0.03, "status": "未处理", "x": 1.0}, {"id": "DeFfuGwE67G", "tracker": "Metaphysics Services 竞对", "competitor": "kevinfoongfs", "caption": "2027 won’t ask every sign to make the same move.\n\nRat may need to notice the small costs adding up.\n\nTiger may need evidence behind a visible opportunity. Goat may need clearer boundaries as attention grows.\n\nWhat does your sign need you to watch—and do?\n\nSwipe through all 12 signs for one practical piece of guidance for each. Save yours, and share this carousel with someone whose sign you spotted.\n\nYour animal sign is a starting point, not your complete reading.\n\nThe free 2027 Winning Guide goes further, with the full forecasts plus Day Masters, Flying Stars and timing guidance.\n\nGet your copy by email through the link in our bio.\n\nWhich sign are you?\nGeneral guidance, not a personal reading.\n\n#2027WinningGuide #FireGoatYear #ChineseMetaphysics #BaZi", "transcript": "", "brk": "Hook类型: 数字承诺 + 身份共鸣\n结构: 抛出2027趋势 → 逐个生肖给实用建议 → 引导领取免费指南\n为什么火: 利用生肖细分精准对位用户好奇心，提供实用可执行的运势建议。\n改编角度: 结合华人对未来运势的关注，推出2027属相避坑指南，引流私域送完整秘籍。", "my": "当你在十字路口反复纠结、听了太多意见还是做不出决定的时候，真正需要的不是别人替你宣判，而是看清眼前这局。\n\n很多人以为，面临重大转折时，只能靠不停试错或者盲目听从别人的经验来碰运气。\n\n其实不是，真正卡住你的往往是局势太乱，忽略了盲点。\n\n我协助过许多处在事业或合作十字路口的人，用这三个步骤来提升判断清晰度。\n\n第一步，梳理具体局势。你不需要一开始就推翻所有计划，而是把当前最需要解决的一个问题单独拿出来，看看自己到底卡在哪一个具体环节。\n\n第二步，识别盲点。大多数人做决定时，容易被情绪或者沉没成本影响，而忽略了真正稳妥的下一步应该避开什么风险，这能帮你减少不必要的试错成本。\n\n第三步，明确判断边界。本服务不替你作决定，也不保证特定结果，我们的目的在于协助你理清思路，找出最适合你当前状况的稳妥方向。\n\n以前很多人面对重要选择时，常常在几个方向之间来回拉扯，耗费了大量时间和精力却依然拿不定主意。\n\n用对了清晰的局势梳理方法之后，你就能在45分钟内把复杂局面拆解清楚，拿到8到10页的个人分析报告，并在60天内完成一次30分钟的复盘。\n\n如果你正处于事业、感情或合作的十字路口，希望找到更稳妥的下一步，可以点击主页链接了解 Strategic Decision Alignment 关键抉择咨询。\n\n首49位预售价为 S$88，每日最多接受2位预约。", "tags": "2027WinningGuide, FireGoatYear, ChineseMetaphysics, BaZi", "bait": false, "type": "Carousel", "likes": 20, "comments": 0, "er": 0.03, "followers": 77648, "date": "2026-10-04", "url": "https://www.instagram.com/p/DeFfuGwE67G/", "video": false, "ratio": 0, "score": 0.03, "status": "未处理", "x": 1.0}]</script>
+<script>
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const SUPA = 'https://xlvfynizlnhbcycfelyz.supabase.co';
+const ANON = 'sb_publishable_bSvPqJsDs9-mW5jL9D0_AA_Ca4FIMSe';
+const STATUSES = ["未处理", "拍摄中", "已处理", "跳过"];
+document.getElementById('updated').textContent = '更新于 2026-11-13 11:39 (GMT+8)';
+const PAGE = 48;
+let shown = PAGE;
+let videoOnly = false;
+let curTab = '全部';
+
+const $ = id => document.getElementById(id);
+const fmt = n => n >= 1e6 ? (n/1e6).toFixed(1)+'M' : n >= 1e3 ? (n/1e3).toFixed(1)+'K' : String(n);
+const getKey = () => ANON;  // anon key is baked in — safe, can only change status
+const I = n => '<svg class="ic"><use href="#i-' + n + '"/></svg>';
+const esc = s => String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const byRec = {}; DATA.forEach(d => byRec[d.id] = d);
+const TRENDS = [];
+DATA.forEach(d => {
+  d.days = d.date ? Math.max(0, Math.floor((Date.now() - new Date(d.date + 'T00:00:00')) / 864e5)) : null;
+  d.horse = d.followers > 0 && d.followers < 50000 && ((d.x || 0) >= 2 || d.score >= 10);
+});
+const PRESETS = [
+  { k: 'px', icon: 'trend', label: '真爆款 ×2+', f: d => (d.x || 0) >= 2 },
+  { k: 'pn', icon: 'star', label: '近7天', f: d => d.days !== null && d.days <= 7 },
+  { k: 'ph', icon: 'zap', label: '黑马', f: d => d.horse },
+  { k: 'pb', icon: 'magnet', label: '引流帖', f: d => d.bait },
+];
+const presetOn = {};
+
+function toast(msg, ok) {
+  const t = $('toast'); t.textContent = msg; t.classList.add('show');
+  t.style.borderColor = ok ? 'var(--green)' : 'var(--red)';
+  clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+// filters
+const comps = [...new Set(DATA.map(d => d.competitor))].sort();
+comps.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = '@'+c; $('fComp').appendChild(o); });
+[...new Set(DATA.map(d => d.tracker))].forEach(t => { const o = document.createElement('option'); o.value = t; o.textContent = t; $('fTracker').appendChild(o); });
+
+function matchQ(d) {
+  const q = ($('fSearch').value || '').trim().toLowerCase();
+  return !q || (d.caption + ' ' + (d.tags || '') + ' ' + (d.transcript || '') + ' ' + (d.brk || '') + ' ' + d.competitor).toLowerCase().includes(q);
+}
+
+function basePool() {
+  const t = $('fTracker').value, c = $('fComp').value;
+  return DATA.filter(d => (!t || d.tracker === t) && (!c || d.competitor === c) && (!videoOnly || d.video)
+    && matchQ(d) && PRESETS.every(p => !presetOn[p.k] || p.f(d)));
+}
+
+function filtered() {
+  const s = $('fSort').value;
+  let arr = basePool().filter(d => curTab === '全部' || d.status === curTab);
+  const key = { score:'score', er:'er', comments:'comments', likes:'likes', x:'x' }[s];
+  if (s === 'date') arr.sort((a,b) => (b.date||'').localeCompare(a.date||''));
+  else arr.sort((a,b) => (b[key]||0) - (a[key]||0));
+  return arr;
+}
+
+let dragRec = null;
+
+function renderTabs() {
+  const pool = basePool();
+  const counts = { '全部': pool.length };
+  STATUSES.forEach(s => counts[s] = pool.filter(d => d.status === s).length);
+  $('tabs').innerHTML = '';
+  ['全部', ...STATUSES].forEach(name => {
+    const el = document.createElement('div');
+    el.className = 'tab' + (curTab === name ? ' on' : '') + (name !== '全部' ? ' droppable' : '');
+    el.innerHTML = esc(name) + ' <span class="cnt">' + counts[name] + '</span>';
+    el.onclick = () => { curTab = name; shown = PAGE; render(); };
+    if (name !== '全部') {
+      el.ondragover = e => { if (dragRec) { e.preventDefault(); el.classList.add('over'); } };
+      el.ondragleave = () => el.classList.remove('over');
+      el.ondrop = e => {
+        e.preventDefault(); el.classList.remove('over');
+        const d = byRec[dragRec]; dragRec = null;
+        if (d && d.status !== name) setStatus(d, name);
+      };
+    }
+    $('tabs').appendChild(el);
+  });
+}
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target, pid = el.dataset.pid;
+      if (!el.querySelector('iframe')) {
+        const f = document.createElement('iframe');
+        f.src = 'https://www.instagram.com/p/' + pid + '/embed/';
+        f.loading = 'lazy'; f.allow = 'autoplay; encrypted-media';
+        el.appendChild(f);
+      }
+      io.unobserve(el);
+    }
+  });
+}, { rootMargin: '400px' });
+
+async function setStatus(d, val) {
+  try {
+    const r = await fetch(SUPA + '/rest/v1/posts?post_id=eq.' + encodeURIComponent(d.id), {
+      method: 'PATCH',
+      headers: { 'apikey': ANON, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify({ status: val })
+    });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    d.status = val;
+    cacheStatus(d.id, val);
+    toast('✓ @' + d.competitor + ' 已移到「' + val + '」', true);
+  } catch (e) {
+    toast('更新失败: ' + e.message + (String(e.message).includes('401') || String(e.message).includes('403') ? ' — 密钥无效?' : ''), false);
+  }
+  render();
+}
+
+function card(d, idx) {
+  const el = document.createElement('div');
+  el.className = 'card' + ((d.x || 0) >= 2 ? ' outlier' : '');
+  el.style.animationDelay = Math.min(idx % PAGE, 14) * 30 + 'ms';
+  el.draggable = true;
+  el.ondragstart = e => {
+    dragRec = d.id;
+    e.dataTransfer.effectAllowed = 'move';
+    el.classList.add('lifting');
+    document.body.classList.add('dragging');
+  };
+  el.ondragend = () => {
+    el.classList.remove('lifting');
+    document.body.classList.remove('dragging');
+    dragRec = null;
+  };
+  const typeIcon = d.video ? 'video' : (d.type === 'Carousel' ? 'layers' : 'image');
+  const days = d.days, horse = d.horse;
+  const ago = days === null ? '' : (days === 0 ? '今天' : days + '天前');
+  const lines = (d.caption || '').split('\n').map(l => l.trim()).filter(Boolean);
+  const hook = lines[0] || '';
+  const tr = (d.transcript && d.transcript !== '(转录失败)' && d.transcript !== '(无口播内容)') ? d.transcript : '';
+  el.innerHTML = `
+    <div class="embed" data-pid="${d.id}"><div class="ph"><svg class="ic"><use href="#i-${typeIcon}"/></svg></div></div>
+    <div class="meta">
+      <div class="row1">
+        <span class="handle" title="拖到上方 tab 即可归类">${I('grip')}</span>
+        <a class="who" href="https://www.instagram.com/${d.competitor}/" target="_blank">@${d.competitor}</a>
+        <span class="badge">${d.type || '-'}</span>
+        ${days !== null && days <= 7 ? '<span class="badge bnew">' + I('star') + '新帖</span>' : ''}
+        ${horse ? '<span class="badge bhorse">' + I('zap') + '黑马</span>' : ''}
+        ${d.bait ? '<span class="badge bbait" title="「留言XX」引流打法 — 评论被引流放大,漏斗设计值得学">' + I('magnet') + '引流</span>' : ''}
+        <span class="date" title="${d.date || ''}">${ago}</span>
+      </div>
+      <div class="nums">
+        <span class="num hot" title="Viral Score">${I('flame')}<b>${d.score}</b></span>
+        ${(d.x || 0) >= 2 ? '<span class="num x" title="是自家平均热度的多少倍">' + I('trend') + '<b>×' + d.x + '</b></span>' : ''}
+        <span class="num er" title="Engagement Rate">${I('pct')}<b>${d.er}%</b></span>
+        <span class="num" title="Likes">${I('heart')}<b>${d.likes > 0 ? fmt(d.likes) : '隐藏'}</b></span>
+        <span class="num" title="Comments">${I('msg')}<b>${fmt(d.comments)}</b></span>
+        <span class="num" title="Followers">${I('users')}<b>${fmt(d.followers)}</b></span>
+      </div>
+      <div class="cap" onclick="this.classList.toggle('open')"></div>
+      ${d.brk ? '<div class="ai" onclick="this.classList.toggle(&quot;open&quot;)"></div>' : ''}
+      ${d.my ? '<div class="mine" onclick="this.classList.toggle(&quot;open&quot;)"></div>' : ''}
+      <div class="srow"><label>状态</label><select class="status btn s${d.status}"></select>
+        <button class="abtn copy" title="复制完整文案">${I('copy')}文案</button>
+        ${tr ? '<button class="abtn mic" title="复制视频口播逐字稿">' + I('mic') + '口播</button>' : ''}
+        ${d.my ? '<button class="abtn minec" title="复制我的改写口播稿(可直接拍)">' + I('mic') + '我的稿</button>' : ''}
+        <button class="abtn brief" title="复制拍摄 Brief(数据+Hook+AI拆解+我的稿+口播稿+文案)">${I('clip')}Brief</button>
+        <a class="abtn" href="${d.url}" target="_blank" title="打开 Instagram 原帖">${I('ext')}</a></div>
+    </div>`;
+  const capEl = el.querySelector('.cap');
+  const restTxt = lines.slice(1).join('\n');
+  capEl.innerHTML = hook ? '<b>' + esc(hook) + '</b>' + (restTxt ? '<br>' + esc(restTxt).replace(/\n/g, '<br>') : '') : '';
+  const aiEl = el.querySelector('.ai');
+  if (aiEl) aiEl.innerHTML = '<b>💡 AI 拆解</b><br>' + esc(d.brk).split(String.fromCharCode(10)).join('<br>');
+  const myEl = el.querySelector('.mine');
+  if (myEl) myEl.innerHTML = '<b>🎬 我的版本(可直接拍)</b><br>' + esc(d.my).split(String.fromCharCode(10)).join('<br>');
+  const sel = el.querySelector('.status');
+  STATUSES.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; sel.appendChild(o); });
+  sel.value = d.status;
+  sel.onchange = () => setStatus(d, sel.value);
+  el.querySelector('.copy').onclick = () =>
+    navigator.clipboard.writeText(d.caption || '').then(() => toast('✓ 文案已复制', true));
+  const micBtn = el.querySelector('.mic');
+  if (micBtn) micBtn.onclick = () =>
+    navigator.clipboard.writeText(tr).then(() => toast('✓ 口播稿已复制', true));
+  const mineBtn = el.querySelector('.minec');
+  if (mineBtn) mineBtn.onclick = () =>
+    navigator.clipboard.writeText(d.my).then(() => toast('✓ 我的改写稿已复制', true));
+  el.querySelector('.brief').onclick = () => {
+    const NL = String.fromCharCode(10);
+    const parts = ['🎬 爆款参考 @' + d.competitor + ((d.x || 0) >= 2 ? '(自家平均 ×' + d.x + ')' : ''),
+      '📊 🔥' + d.score + ' | ER ' + d.er + '% | ❤️ ' + (d.likes > 0 ? fmt(d.likes) : '隐藏') +
+      ' | 💬 ' + fmt(d.comments) + ' | 👥 ' + fmt(d.followers) + (ago ? ' | ' + ago : ''),
+      '🔗 ' + d.url, '✍️ Hook: ' + hook];
+    if (d.brk) parts.push('——— AI 拆解 ———', d.brk);
+    if (d.my) parts.push('——— 我的版本(可直接拍)———', d.my);
+    if (tr) parts.push('——— 竞对原口播稿 ———', tr);
+    parts.push('——— 完整文案 ———', d.caption || '');
+    navigator.clipboard.writeText(parts.join(NL)).then(() => toast('✓ Brief 已复制,可直接发给拍摄/剪辑', true));
+  };
+  io.observe(el.querySelector('.embed'));
+  return el;
+}
+
+function render() {
+  renderTabs();
+  const arr = filtered();
+  const grid = $('grid'); grid.innerHTML = '';
+  arr.slice(0, shown).forEach((d, i) => grid.appendChild(card(d, i)));
+  $('empty').style.display = arr.length ? 'none' : '';
+  $('moreWrap').style.display = arr.length > shown ? '' : 'none';
+}
+
+
+function applyStatusCache() {
+  try {
+    const c = JSON.parse(localStorage.getItem('st_cache') || '{}');
+    Object.keys(c).forEach(rid => { const d = byRec[rid]; if (d) d.status = c[rid]; });
+  } catch (e) {}
+}
+
+function cacheStatus(rid, val) {
+  try {
+    const c = JSON.parse(localStorage.getItem('st_cache') || '{}');
+    c[rid] = val; localStorage.setItem('st_cache', JSON.stringify(c));
+  } catch (e) {}
+}
+
+// live status refresh (so weekly-baked page shows current statuses)
+async function refreshStatuses() {
+  applyStatusCache(); render();  // last-known statuses first
+  if (Date.now() - (+localStorage.getItem('st_ts') || 0) < 600000) return;  // 10-min throttle
+  localStorage.setItem('st_ts', String(Date.now()));
+  const fresh = {};
+  try {
+    const r = await fetch(SUPA + '/rest/v1/posts?select=post_id,status', { headers: { 'apikey': ANON } });
+    if (!r.ok) return;
+    (await r.json()).forEach(row => {
+      const d = byRec[row.post_id];
+      if (d) d.status = row.status || '未处理';
+      if (row.status && row.status !== '未处理') fresh[row.post_id] = row.status;
+    });
+    localStorage.setItem('st_cache', JSON.stringify(fresh));
+    render();
+  } catch (e) {}
+}
+
+['fTracker','fComp','fSort'].forEach(id => $(id).onchange = () => { shown = PAGE; render(); });
+$('fSearch').oninput = () => { shown = PAGE; render(); };
+$('fVideo').onclick = () => { videoOnly = !videoOnly; $('fVideo').classList.toggle('on', videoOnly); shown = PAGE; render(); };
+$('moreBtn').onclick = () => { shown += PAGE; render(); };
+
+// preset quick filters
+$('presets').innerHTML = '<span class="lbl">快筛</span>';
+PRESETS.forEach(p => {
+  const c = document.createElement('span'); c.className = 'chip2';
+  c.innerHTML = I(p.icon) + esc(p.label);
+  c.onclick = () => { presetOn[p.k] = !presetOn[p.k]; c.classList.toggle('on', presetOn[p.k]); shown = PAGE; render(); };
+  $('presets').appendChild(c);
+});
+
+// trending hashtags among outlier posts
+if (TRENDS.length) {
+  $('trends').innerHTML = '<span class="lbl">爆款热词</span>';
+  TRENDS.forEach(([tag, n]) => {
+    const c = document.createElement('span'); c.className = 'chip2';
+    c.textContent = '#' + tag + ' ' + n;
+    c.onclick = () => { $('fSearch').value = $('fSearch').value === tag ? '' : tag; shown = PAGE; render(); };
+    $('trends').appendChild(c);
+  });
+} else { $('trends').style.display = 'none'; }
+
+render();
+refreshStatuses();
+</script>
+</body>
+</html>
